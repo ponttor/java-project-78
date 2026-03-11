@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id("jacoco")
+    id("org.sonarqube") version "7.2.3.7755"
 }
 
 group = 'hexlet.code'
@@ -15,6 +17,29 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "ponttor_java-project-78")
+        property("sonar.organization", "ponttor")
+    }
+}
 test {
     useJUnitPlatform()
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
 }
