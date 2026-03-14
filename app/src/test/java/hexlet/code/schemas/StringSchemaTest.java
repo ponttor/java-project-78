@@ -49,5 +49,23 @@ class StringSchemaTest {
         StringSchema stringSchema = new StringSchema();
 
         assert stringSchema.required().minLength(2).contains("hex").isValid("hexlet");
+        assertFalse(stringSchema.required().minLength(7).contains("hex").isValid("hexlet"));
+        assertFalse(stringSchema.required().minLength(2).contains("mex").isValid("hexlet"));
+    }
+
+    @Test
+    void lastMinLengthValidationWins() {
+        StringSchema stringSchema = new StringSchema();
+
+        assert stringSchema.minLength(10).minLength(4).isValid("Hexlet");
+        assertFalse(stringSchema.minLength(4).minLength(10).isValid("Hexlet"));
+    }
+
+    @Test
+    void lastContainsValidationWins() {
+        StringSchema stringSchema = new StringSchema();
+
+        assert stringSchema.contains("nope").contains("hex").isValid("hexlet");
+        assertFalse(stringSchema.contains("hex").contains("nope").isValid("hexlet"));
     }
 }
