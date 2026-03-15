@@ -11,7 +11,7 @@ public class BaseSchema<T> {
         this.rules = new HashMap<>();
     }
 
-    public boolean isValid(T value) {
+    public final boolean isValid(T value) {
         for (Predicate<T> rule : this.rules.values()) {
             if (!rule.test(value)) {
                 return false;
@@ -21,11 +21,11 @@ public class BaseSchema<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public boolean isValidValue(Object value) {
+    public final boolean isValidValue(Object value) {
         return isValid((T) value);
     }
 
-    protected void addRule(String ruleName, Predicate<T> rule) {
+    protected final void addRule(String ruleName, Predicate<T> rule) {
         rules.put(ruleName, rule);
     }
 }
