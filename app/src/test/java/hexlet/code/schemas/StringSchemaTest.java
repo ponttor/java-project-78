@@ -1,6 +1,7 @@
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class StringSchemaTest {
@@ -8,9 +9,9 @@ class StringSchemaTest {
     void stringSchemaIsValid() {
         StringSchema stringSchema = new StringSchema();
 
-        assert stringSchema.isValid(null);
-        assert stringSchema.isValid("");
-        assert stringSchema.isValid("uuu");
+        assertTrue(stringSchema.isValid(null));
+        assertTrue(stringSchema.isValid(""));
+        assertTrue(stringSchema.isValid("uuu"));
     }
 
     @Test
@@ -19,7 +20,7 @@ class StringSchemaTest {
 
         assertFalse(stringSchema.required().isValid(""));
         assertFalse(stringSchema.required().isValid(null));
-        assert stringSchema.required().isValid("uu");
+        assertTrue(stringSchema.required().isValid("uu"));
     }
 
     @Test
@@ -28,9 +29,9 @@ class StringSchemaTest {
 
         assertFalse(stringSchema.minLength(2).isValid("u"));
         assertFalse(stringSchema.minLength(2).minLength(12).isValid("uuu"));
-        assert stringSchema.minLength(12).minLength(2).isValid("uu");
-        assert stringSchema.minLength(2).isValid("uu");
-        assert stringSchema.minLength(2).isValid(null);
+        assertTrue(stringSchema.minLength(12).minLength(2).isValid("uu"));
+        assertTrue(stringSchema.minLength(2).isValid("uu"));
+        assertTrue(stringSchema.minLength(2).isValid(null));
     }
 
     @Test
@@ -38,9 +39,9 @@ class StringSchemaTest {
         StringSchema stringSchema = new StringSchema();
 
         assertFalse(stringSchema.contains("hex").isValid("uuu"));
-        assert stringSchema.contains("hex").isValid("hexlet");
-        assert stringSchema.contains("hex").isValid(null);
-        assert stringSchema.contains("mex").contains("hex").isValid("hexlet");
+        assertTrue(stringSchema.contains("hex").isValid("hexlet"));
+        assertTrue(stringSchema.contains("hex").isValid(null));
+        assertTrue(stringSchema.contains("mex").contains("hex").isValid("hexlet"));
         assertFalse(stringSchema.contains("u").contains("hex").isValid("uuu"));
     }
 
@@ -48,7 +49,7 @@ class StringSchemaTest {
     void allStringSchemaValidatesString() {
         StringSchema stringSchema = new StringSchema();
 
-        assert stringSchema.required().minLength(2).contains("hex").isValid("hexlet");
+        assertTrue(stringSchema.required().minLength(2).contains("hex").isValid("hexlet"));
         assertFalse(stringSchema.required().minLength(7).contains("hex").isValid("hexlet"));
         assertFalse(stringSchema.required().minLength(2).contains("mex").isValid("hexlet"));
     }
@@ -57,7 +58,7 @@ class StringSchemaTest {
     void lastMinLengthValidationWins() {
         StringSchema stringSchema = new StringSchema();
 
-        assert stringSchema.minLength(10).minLength(4).isValid("Hexlet");
+        assertTrue(stringSchema.minLength(10).minLength(4).isValid("Hexlet"));
         assertFalse(stringSchema.minLength(4).minLength(10).isValid("Hexlet"));
     }
 
@@ -65,7 +66,7 @@ class StringSchemaTest {
     void lastContainsValidationWins() {
         StringSchema stringSchema = new StringSchema();
 
-        assert stringSchema.contains("nope").contains("hex").isValid("hexlet");
+        assertTrue(stringSchema.contains("nope").contains("hex").isValid("hexlet"));
         assertFalse(stringSchema.contains("hex").contains("nope").isValid("hexlet"));
     }
 }
