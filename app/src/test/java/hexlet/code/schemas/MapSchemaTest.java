@@ -1,10 +1,11 @@
 package hexlet.code.schemas;
 
-import hexlet.code.schemas.MapSchema;
+import hexlet.code.Validator;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import hexlet.code.Validator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,19 +33,18 @@ class MapSchemaTest {
 
     @Test
     void sizeofMapSchemaValidation() {
-         MapSchema mapSchema = new MapSchema();
+        MapSchema mapSchema = new MapSchema();
 
         Map<String, String> validMap = new HashMap<>();
         validMap.put("key1", "value1");
         validMap.put("key2", "value2");
 
-
-         assertFalse(mapSchema.sizeof(3).isValid(validMap));
-         assertFalse(mapSchema.sizeof(3).isValid(new HashMap<>()));
+        assertFalse(mapSchema.sizeof(3).isValid(validMap));
+        assertFalse(mapSchema.sizeof(3).isValid(new HashMap<>()));
 
         validMap.put("key3", "value3");
-         assertTrue(mapSchema.sizeof(3).isValid(validMap));
-     }
+        assertTrue(mapSchema.sizeof(3).isValid(validMap));
+    }
 
     @Test
     void combinedMapSchemaValidation() {

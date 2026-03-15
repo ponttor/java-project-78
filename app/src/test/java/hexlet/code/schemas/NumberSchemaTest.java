@@ -22,12 +22,12 @@ class NumberSchemaTest {
 
     @Test
     void positiveNumberSchemaValidation() {
-         NumberSchema numberSchema = new NumberSchema();
+        NumberSchema numberSchema = new NumberSchema();
 
-         assertFalse(numberSchema.positive().isValid(-1));
-         assertFalse(numberSchema.positive().isValid(0));
-         assertTrue(numberSchema.positive().isValid(10));
-     }
+        assertFalse(numberSchema.positive().isValid(-1));
+        assertFalse(numberSchema.positive().isValid(0));
+        assertTrue(numberSchema.positive().isValid(10));
+    }
 
     @Test
     void rangeNumberSchemaValidation() {
