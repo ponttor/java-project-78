@@ -20,11 +20,6 @@ public class BaseSchema<T> {
         return true;
     }
 
-    @SuppressWarnings("unchecked")
-    public final boolean isValidValue(Object value) {
-        return isValid((T) value);
-    }
-
     protected final void addRule(String ruleName, Predicate<T> rule) {
         rules.put(ruleName, rule);
     }

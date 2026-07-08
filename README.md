@@ -101,7 +101,7 @@ Automated tests are a core part of the project. The validator is well suited for
 ```bash
 git clone https://github.com/ponttor/java-project-78.git
 cd app
-./gradlew installDist
+./gradlew build
 ```
 
 ## Build and Test

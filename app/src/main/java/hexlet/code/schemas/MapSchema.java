@@ -22,7 +22,9 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
             for (Map.Entry<String, ? extends BaseSchema<?>> entry : schemas.entrySet()) {
                 var fieldValue = value.get(entry.getKey());
-                if (!entry.getValue().isValidValue(fieldValue)) {
+                @SuppressWarnings("unchecked")
+                var schema = (BaseSchema<Object>) entry.getValue();
+                if (!schema.isValid(fieldValue)) {
                     return false;
                 }
             }
