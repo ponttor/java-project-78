@@ -10,21 +10,16 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
 
     public MapSchema sizeof(int size) {
-        addRule("sizeof", value -> value == null || value.size() == size);
+        addNullableRule("sizeof", value -> value.size() == size);
         return this;
     }
 
-    public MapSchema shape(Map<String, ? extends BaseSchema<?>> schemas) {
-        addRule("shape", value -> {
-            if (value == null) {
-                return true;
-            }
-
-            for (Map.Entry<String, ? extends BaseSchema<?>> entry : schemas.entrySet()) {
-                var fieldValue = value.get(entry.getKey());
+    public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
+        addNullableRule("shape", value -> {
+            for (Map.Entry<String, BaseSchema<T>> entry : schemas.entrySet()) {
                 @SuppressWarnings("unchecked")
-                var schema = (BaseSchema<Object>) entry.getValue();
-                if (!schema.isValid(fieldValue)) {
+                T fieldValue = (T) value.get(entry.getKey());
+                if (!entry.getValue().isValid(fieldValue)) {
                     return false;
                 }
             }

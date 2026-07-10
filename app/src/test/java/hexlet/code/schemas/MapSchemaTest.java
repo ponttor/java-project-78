@@ -75,7 +75,7 @@ class MapSchemaTest {
         Validator validator = new Validator();
         MapSchema mapSchema = validator.map();
 
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
 
@@ -101,7 +101,7 @@ class MapSchemaTest {
         Validator validator = new Validator();
         MapSchema mapSchema = validator.map();
 
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
         schemas.put("lastName", validator.string().required().minLength(2));
 

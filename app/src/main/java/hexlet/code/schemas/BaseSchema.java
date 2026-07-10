@@ -23,4 +23,8 @@ public class BaseSchema<T> {
     protected final void addRule(String ruleName, Predicate<T> rule) {
         rules.put(ruleName, rule);
     }
+
+    protected final void addNullableRule(String ruleName, Predicate<T> rule) {
+        addRule(ruleName, value -> value == null || rule.test(value));
+    }
 }

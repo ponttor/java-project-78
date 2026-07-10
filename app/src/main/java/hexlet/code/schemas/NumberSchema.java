@@ -7,12 +7,12 @@ public final class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema positive() {
-        addRule("positive", value -> value == null || value > 0);
+        addNullableRule("positive", value -> value > 0);
         return this;
     }
 
     public NumberSchema range(int left, int right) {
-        addRule("range", value -> value == null || (value >= left && value <= right));
+        addNullableRule("range", value -> value >= left && value <= right);
         return this;
     }
 }
