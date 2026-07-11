@@ -6,12 +6,18 @@ import java.util.function.Predicate;
 
 public class BaseSchema<T> {
     private final Map<String, Predicate<T>> rules;
+    private boolean required;
 
     public BaseSchema() {
         this.rules = new HashMap<>();
+        this.required = false;
     }
 
     public final boolean isValid(T value) {
+        if (value == null) {
+            return !required;
+        }
+
         for (Predicate<T> rule : this.rules.values()) {
             if (!rule.test(value)) {
                 return false;
@@ -24,7 +30,7 @@ public class BaseSchema<T> {
         rules.put(ruleName, rule);
     }
 
-    protected final void addNullableRule(String ruleName, Predicate<T> rule) {
-        addRule(ruleName, value -> value == null || rule.test(value));
+    protected final void setRequired() {
+        required = true;
     }
 }
